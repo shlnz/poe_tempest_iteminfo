@@ -7,5 +7,5 @@ Updates ItemInfo with the newest tempest zone-mods from __http://poetempest.com_
 - Writes it back to MapList.txt in data/MapList.txt
 
 ## Upcoming
-- Report new tempests ingame over golbal-channel "1415" that will be registered on the webpage
+- Report new tempests ingame over chat that will be registered on the webpage
 - Updating MapList.txt
