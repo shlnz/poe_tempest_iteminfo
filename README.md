@@ -3,8 +3,7 @@ Updates ItemInfo with the newest tempest zone-mods from __http://poetempest.com_
 
 ## Features
 - Grabs data from __http://poetempest.com__ developed by Justin Vanderheide
-- Processes informations
-- Writes it back to MapList.txt in data/MapList.txt
+- Writes it back to MapList.txt that it can be accessed ingame via ItemInfo
 
 ## Upcoming
 - Report new tempests ingame over chat that will be registered on the webpage
