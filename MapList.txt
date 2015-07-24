@@ -1,7 +1,7 @@
 mapList := Object()
 uniqueMapList := Object()
 
-matchList := ["Crypt Map","Dried Lake Map","Dunes Map","Dungeon Map","Grotto Map","Orchard Map","Overgrown Ruin Map","Tropical Island Map","Arcade Map","Arsenal Map","Cemetery Map","Mountain Ledge Map","Sewer Map","Thicket Map","Wharf Map","Ghetto Map","Mud Geyser Map","Museum Map","Reef Map","Spider Lair Map","Springs Map","Vaal Pyramid Map","Catacomb Map","Overgrown Shrine Map","Promenade Map","Shore Map","Spider Forest Map","Tunnel Map","Bog Map","Coves Map","Graveyard Map","Pier Map","Underground Sea Map","Villa Map","Arachnid Nest Map","Colonnade Map","Dry Woods Map","Strand Map","Temple Map","Jungle Valley Map","Labyrinth Map","Mine Map","Torture Chamber Map","Waste Pool Map","Canyon Map","Cells Map","Dark Forest Map","Dry Peninsula","Gorge Map","Maze Map","Residence Map","Underground River Map","Bazaar Map","Necropolis Map","Plateau Map","Academy Map","Crematorium Map","Precinct Map","Shipyard Map","Shrine Map","Courtyard Map","Palace Map","Desert Map","Pit Map","Desert Map","Aqueduct Map","Quarry Map","Arid Lake Map","Abyss Map","Village Ruin Map","Excavation Map","Wasteland Map","Waterways Map","Colosseum Map","Core Map","Volcano Map","Channel Map"]
+matchList := ["Crypt Map","Dunes Map","Dungeon Map","Grotto Map","Orchard Map","Overgrown Ruin Map","Tropical Island Map","Arcade Map","Arsenal Map","Cemetery Map","Mountain Ledge Map","Sewer Map","Thicket Map","Wharf Map","Ghetto Map","Mud Geyser Map","Museum Map","Reef Map","Spider Lair Map","Springs Map","Vaal Pyramid Map","Catacomb Map","Overgrown Shrine Map","Promenade Map","Shore Map","Spider Forest Map","Tunnel Map","Bog Map","Coves Map","Graveyard Map","Pier Map","Underground Sea Map","Villa Map","Arachnid Nest Map","Colonnade Map","Dry Woods Map","Strand Map","Temple Map","Jungle Valley Map","Labyrinth Map","Mine Map","Torture Chamber Map","Waste Pool Map","Canyon Map","Cells Map","Dark Forest Map","Dry Peninsula Map","Gorge Map","Maze Map","Residence Map","Underground River Map","Bazaar Map","Necropolis Map","Plateau Map","Academy Map","Crematorium Map","Precinct Map","Shipyard Map","Shrine Map","Courtyard Map","Palace Map","Pit Map","Desert Map","Aqueduct Map","Quarry Map","Arid Lake Map","Abyss Map","Village Ruin Map","Excavation Map","Wasteland Map","Waterways Map","Colosseum Map","Core Map","Volcano Map","Channel Map","Arena Map","Vaal Temple Map"]
 
 ;----------------------Normal Map List--------------------
 
@@ -135,8 +135,6 @@ mapList["Desert Map"] := "`nNo info`n`nMap Type: unknown`n`nBoss: unknown`n`nVen
 
 mapList["Pit Map"] := "`nNo info`n`nMap Type: unknown`n`nBoss: unknown`n`nVendor:`n- unknown"
 
-mapList["Desert Map"] := "`nNo info`n`nMap Type: unknown`n`nBoss: unknown`n`nVendor:`n- unknown"
-
 mapList["Aqueduct Map"] := "`nNo info`n`nMap Type: unknown`n`nBoss: unknown`n`nVendor:`n- unknown"
 
 mapList["Quarry Map"] := "`nNo info`n`nMap Type: unknown`n`nBoss: unknown`n`nVendor:`n- unknown"
@@ -160,6 +158,11 @@ mapList["Core Map"] := "`nNo info`n`nMap Type: unknown`n`nBoss: unknown`n`nVendo
 mapList["Volcano Map"] := "`nNo info`n`nMap Type: unknown`n`nBoss: unknown`n`nVendor:`n- unknown"
 
 mapList["Channel Map"] := "`nNo info`n`nMap Type: unknown`n`nBoss: unknown`n`nVendor:`n- unknown"
+
+mapList["Vaal Temple Map"] := "`nNo info`n`nMap Type: unknown`n`nBoss: unknown`n`nVendor:`n- unknown"
+
+mapList["Arena Map"] := "`nNo info`n`nMap Type: unknown`n`nBoss: unknown`n`nVendor:`n- unknown"
+
 
 ;----------------------Unique Map List--------------------
 
