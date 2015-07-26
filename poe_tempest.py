@@ -244,7 +244,7 @@ def verify_log_data_and_vote(map_name, base_name, suffix_name=None):
     url = 'http://poetempest.com/api/v0/vote'
     response = requests.post(url, data=data, headers=headers)
     if response.status_code == requests.codes.ok:
-        print('[%s] Voting successful for Map: %s, base: %s, suffix: %s' % (current_time_str, map_name, base_name, suffix_name))
+        print('[%s] Voting successful for Map: %s, base: %s, suffix: %s' % (current_time_str(), map_name, base_name, suffix_name))
 
     return
 
