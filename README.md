@@ -8,7 +8,7 @@ Updates ItemInfo with the newest tempest zone-mods from __http://poetempest.com_
 
 ## Report function
 Write `TEMPEST: <MAP>, <Temest Name>` ingame in chat
-e.g. `TEMPEST: Tropical Island, Morbid Tempest of Precision`
+for example `TEMPEST: Tropical Island, Morbid Tempest of Precision`
 or if there is no active tempest on the map: `TEMPEST: Tropical Island, None`
 
 ## Upcoming
