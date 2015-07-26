@@ -14,6 +14,8 @@ For example `TEMPEST: Tropical Island, Morbid Tempest of Precision`
 or if there is no active tempest on the map: `TEMPEST: Tropical Island, None`
 
 ## Installation
+If you do not have Python installed you can download an executable from __https://github.com/shlnz/poe_tempest_iteminfo/releases__
+
 1. Download and install AutoHotKey from "http://www.autohotkey.com/"
 2. Download ItemInfo from "https://sites.google.com/site/poeiteminfoscript/"
    and extract the file to a location, e.g. "C:\PoE-Item-Info"
