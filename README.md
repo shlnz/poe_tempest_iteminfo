@@ -1,4 +1,4 @@
-![asd](http://imgur.com/ajf4S5e)
+![asd](http://i.imgur.com/ajf4S5e.png?1)
 
 # poe_tempest_iteminfo
 Updates ItemInfo with the newest tempest zone-mods from __http://poetempest.com__
