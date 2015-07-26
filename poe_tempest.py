@@ -33,7 +33,7 @@ def next_full_hour():
 
 
 def last_full_hour():
-    ''' returns the next full hour '''
+    ''' returns the last full hour '''
     return datetime.now().replace(minute=0, second=0, microsecond=0)
 
 
@@ -65,9 +65,10 @@ def print_great_temp():
     for map_name, items in GREAT.items():
         print('------------------------------------')
         print('[%s] Map:          %s' % (current_time_str(), map_name))
-        print('[%s] Votes:        %s' % (current_time_str(), items[2]))
+        print('[%s] Votes:        %s' % (current_time_str(), items[3]))
         print('[%s] Tempest:      %s' % (current_time_str(), items[0]))
-        print('[%s] Description:  %s' % (current_time_str(), items[1]))
+        print('[%s] Base:         %s' % (current_time_str(), items[1]))
+        print('[%s] Suffix:       %s' % (current_time_str(), items[2]))
     print('------------------------------------')
 
 
@@ -77,7 +78,14 @@ def get_current_tempests():
     return json.loads(response.decode('utf-8'))
 
 
-def write_to_map_list(temps, file_to_start):
+def get_bases_and_suffixes():
+    response = urlopen('http://poetempest.com/api/v0/tempests').read()
+    tempests = json.loads(response.decode('utf-8'))
+
+    return tempests
+
+
+def write_to_map_list(temps, bs, file_to_start):
     ''' Getting information out of the MapList.txt in the script folder
         and replacing the new info with the existing MapList.txt in
         the data/MapList.txt '''
@@ -101,12 +109,19 @@ def write_to_map_list(temps, file_to_start):
                     votes = prefs['votes']
                     tempest_type = prefs['type']
 
+                    suffix_description = bs['suffixes'][suffix]
+
+                    if base != 'unknown':
+                        base_description = bs['bases'][base]
+                    else:
+                        base_description = 'unknown'
+
                     if line.startswith('mapList["' + map_name):
 
-                        line = line[:-2] + '`n`nTempest on map:`n- ' + tempest_name + '`n- ' + base
+                        line = line[:-2] + '`n`nTempest on map:`n- ' + tempest_name + '`n- ' + base_description
 
-                        if suffix != '':
-                            line += '`n- Suffix: ' + suffix
+                        if suffix_description != '':
+                            line += '`n- Suffix: ' + suffix_description
 
                         if tempest_type != '':
                             line += '`n- Type: ' + tempest_type
@@ -129,7 +144,7 @@ def write_to_map_list(temps, file_to_start):
         exit_with_input()
 
 
-def handle_great_tempests(temps, play_mp3):
+def handle_great_tempests(temps, bs, play_mp3):
     ''' print if there is a new great tempest on a map. resets every full hour '''
     new_great_temps = False
 
@@ -145,11 +160,14 @@ def handle_great_tempests(temps, play_mp3):
         map_name = map_name.replace('_', ' ').title()
         tempest_name = prefs['name']
         base = prefs['base']
+        suffix = prefs['suffix']
         votes = prefs['votes']
         tempest_type = prefs['type']
 
         if tempest_type == 'great' and map_name not in GREAT:
-            GREAT[map_name] = [tempest_name, base, votes]
+            suffix_description = bs['suffixes'][suffix]
+            base_description = bs['bases'][base]
+            GREAT[map_name] = [tempest_name, base_description, suffix_description, votes]
             new_great_temps = True
 
     if GREAT:
@@ -355,6 +373,7 @@ def log_in_thread(path):
 
 if __name__ == '__main__':
     paths = find_paths_in_registry()
+    bs = get_bases_and_suffixes()
 
     thread1 = threading.Thread(target=log_in_thread, args=(paths['POE'],))
     thread1.daemon = True
@@ -374,8 +393,8 @@ if __name__ == '__main__':
             print('[%s] Grabbing new data...' % current_time_str())
 
             temps_dict = get_current_tempests()
-            handle_great_tempests(temps_dict, play_mp3)
-            write_to_map_list(temps_dict, file_to_start)
+            handle_great_tempests(temps_dict, bs, play_mp3)
+            write_to_map_list(temps_dict, bs, file_to_start)
 
             print('[%s] Done. Next try in %d min. Restarting "AutoHotKey"' % (current_time_str(), reload_time))
             subprocess.Popen([paths['AutoHotkey'], file_to_start])
