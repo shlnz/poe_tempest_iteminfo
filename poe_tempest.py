@@ -10,6 +10,7 @@ import platform
 import errno
 import re
 import requests
+import threading
 
 from urllib.request import urlopen
 from datetime import datetime, timedelta
@@ -344,9 +345,20 @@ def find_paths_in_registry():
     return paths
 
 
-if __name__ == '__main__':
+def log_in_thread(path):
+    ''' Read log file every 60 sec. in a thread '''
     last_pos = 0
+    while True:
+            last_pos = read_poe_log(path, last_pos)
+            sleep(60)
+
+
+if __name__ == '__main__':
     paths = find_paths_in_registry()
+
+    thread1 = threading.Thread(target=log_in_thread, args=(paths['POE'],))
+    thread1.daemon = True
+    thread1.start()
 
     delete = read_config_part('POE-Log', 'delete')
     if delete.lower() == 'yes':
@@ -365,10 +377,8 @@ if __name__ == '__main__':
             handle_great_tempests(temps_dict, play_mp3)
             write_to_map_list(temps_dict, file_to_start)
 
-            last_pos = read_poe_log(paths['POE'], last_pos)
-
             print('[%s] Done. Next try in %d min. Restarting "AutoHotKey"' % (current_time_str(), reload_time))
             subprocess.Popen([paths['AutoHotkey'], file_to_start])
             sleep(reload_time * 60)
-    except KeyboardInterrupt:
+    except (KeyboardInterrupt, SystemExit):
         end_autohotkey(paths['AutoHotkey'])
