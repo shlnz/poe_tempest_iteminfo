@@ -6,6 +6,7 @@ Updates ItemInfo with the newest tempest zone-mods from __http://poetempest.com_
 ## Features
 - Grabs data from __http://poetempest.com__ developed by Justin Vanderheide
 - Writes it back to MapList.txt that it can be accessed ingame via ItemInfo
+- Makes a sound, if a good tempest is reported
 - Report new tempests ingame over chat that will be registered on the webpage
 
 ## Report function
@@ -25,4 +26,5 @@ If you do not have Python installed you can download an executable from __https:
 
 ## Upcoming
 - Fixing Bugs
-- improvements
+- Improvements
+- Add function to ItemInfo to display good tempests ingame
