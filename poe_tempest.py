@@ -170,6 +170,14 @@ def handle_great_tempests(temps, bs, play_mp3):
             GREAT[map_name] = [tempest_name, base_description, suffix_description, votes]
             new_great_temps = True
 
+        # update votes
+        if map_name in GREAT and GREAT[map_name][3] != votes:
+            GREAT[map_name][3] = votes
+
+        # Stupid trolls
+        if map_name in GREAT and tempest_type != 'great':
+            del GREAT[map_name]
+
     if GREAT:
         print_great_temp()
 
@@ -245,6 +253,8 @@ def verify_log_data_and_vote(map_name, base_name, suffix_name=None):
     response = requests.post(url, data=data, headers=headers)
     if response.status_code == requests.codes.ok:
         print('[%s] Voting successful for Map: %s, base: %s, suffix: %s' % (current_time_str(), map_name, base_name, suffix_name))
+    else:
+        print(response.status_code)
 
     return
 
@@ -269,7 +279,7 @@ def read_poe_log(path, last_pos=0):
 
                 if last_h < date < next_h:
                     line = line[19:]
-                    match = re.findall(r'[\d\/\:\ ]{10,}287 \[[\w\s]*\]\ [\&\#]*[\w\_\-]*\:\ TEMPEST[\:\ ]{2,}(.*?)[\,\;\ ]{2,}(.*?)$', line, re.DOTALL)
+                    match = re.findall(r'[\d\/\:\ ]{8,}287 \[[\w\s]*\]\ [\&\#\%]*[\w\_\-]*\:\ TEMPEST[\:\ ]{2,}(.*?)[\,\;\ ]{2,}(.*?)$', line, re.DOTALL)
                     if match and len(match[0]) == 2:
                         # TODO: need to replace it with a regex
                         map_name, prefs = match[0]
@@ -336,9 +346,11 @@ def find_paths_in_registry():
         autohotkey_path = read_config_part('Paths', 'AutoHotKey')
 
         if os.path.isfile(autohotkey_path):
-            print("Successfully loaded AutoHotKey path from config file")
+            print('Successfully loaded AutoHotKey path from config file')
             paths['AutoHotkey'] = autohotkey_path
-        print('AutoHotkey not found in registry')
+        else:
+            paths['AutoHotkey'] = 'None'
+            print('Starting without AutoHotkey and ItemInfo')
 
     if 'POE' not in paths.keys():
         poe_path = read_config_part('Paths', 'poePath')
@@ -355,7 +367,7 @@ def find_paths_in_registry():
 
         if key == 'AutoHotkey':
             # TODO: just testing
-            paths[key] = paths[key][:-4] + 'A32.exe'
+            pass
 
         elif key == 'POE':
             paths['POE'] += '\logs\Client.txt'
@@ -388,16 +400,21 @@ if __name__ == '__main__':
     try:
         while True:
             clear()
-            end_autohotkey(paths['AutoHotkey'])
-
             print('[%s] Grabbing new data...' % current_time_str())
 
             temps_dict = get_current_tempests()
             handle_great_tempests(temps_dict, bs, play_mp3)
-            write_to_map_list(temps_dict, bs, file_to_start)
 
-            print('[%s] Done. Next try in %d min. Restarting "AutoHotKey"' % (current_time_str(), reload_time))
-            subprocess.Popen([paths['AutoHotkey'], file_to_start])
+            if paths['AutoHotkey'] != 'None':
+                end_autohotkey(paths['AutoHotkey'])
+                write_to_map_list(temps_dict, bs, file_to_start)
+
+                print('[%s] Done. Next try in %d min. Restarting "AutoHotKey"' % (current_time_str(), reload_time))
+                subprocess.Popen([paths['AutoHotkey'], file_to_start])
+
+            else:
+                print('[%s] Done. Next try in %d min. ItemInfo not used. If you want to use it setup the config.ini.' % ((current_time_str(), reload_time)))
+
             sleep(reload_time * 60)
     except (KeyboardInterrupt, SystemExit):
         end_autohotkey(paths['AutoHotkey'])
